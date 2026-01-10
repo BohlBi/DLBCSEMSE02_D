@@ -6,7 +6,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 class Navigator(internal val navController: NavHostController) {
-
     fun navigateTo(route: Route ) {
         navController.navigate(route)
     }
@@ -14,8 +13,6 @@ class Navigator(internal val navController: NavHostController) {
     fun navigateBack() {
         navController.popBackStack()
     }
-
-
 }
 
 @Composable

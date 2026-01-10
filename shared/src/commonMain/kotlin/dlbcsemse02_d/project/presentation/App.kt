@@ -18,7 +18,6 @@ import org.koin.dsl.koinConfiguration
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview
 fun App() {
     KoinApplication(
         configuration = koinConfiguration { modules(appModule) }
