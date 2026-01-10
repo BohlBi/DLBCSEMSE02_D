@@ -47,8 +47,8 @@ kotlin {
 dependencies {
     implementation(project(":shared"))
     implementation(libs.androidx.activity.compose)
-
+    implementation(libs.koin.compose.navigation3)
     // Compose UI tooling for previews
-    implementation("androidx.compose.ui:ui-tooling-preview:1.7.6")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.7.6")
+    implementation(libs.androidx.ui.tooling.preview)
+    debugImplementation(libs.androidx.ui.tooling)
 }
