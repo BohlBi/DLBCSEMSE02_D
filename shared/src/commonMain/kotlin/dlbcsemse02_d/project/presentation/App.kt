@@ -12,7 +12,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import dlbcsemse02_d.project.di.appModule
 import dlbcsemse02_d.project.navigation.AppNavHost
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import dlbcsemse02_d.project.navigation.LocalNavigator
+import dlbcsemse02_d.project.navigation.rememberNavigator
+import dlbcsemse02_d.project.presentation.components.BottomNavigationBar
 import org.koin.compose.KoinApplication
 import org.koin.dsl.koinConfiguration
 
@@ -23,22 +25,28 @@ fun App() {
         configuration = koinConfiguration { modules(appModule) }
     ) {
         MaterialTheme {
-            Scaffold(
-                modifier = Modifier.fillMaxSize(),
-                topBar = {
-                    TopAppBar(
-                        title = { Text("Radio App") },
-                        colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer,
-                            titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            val navigator = rememberNavigator()
+
+            CompositionLocalProvider(LocalNavigator provides navigator) {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    topBar = {
+                        TopAppBar(
+                            title = { Text("Radio App") },
+                            colors = TopAppBarDefaults.topAppBarColors(
+                                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
                         )
+                    },
+                    bottomBar = {
+                        BottomNavigationBar()
+                    }
+                ) { paddingValues ->
+                    AppNavHost(
+                        modifier = Modifier.padding(paddingValues)
                     )
                 }
-            ) { paddingValues ->
-
-                AppNavHost(
-                    modifier = Modifier.padding(paddingValues)
-                )
             }
         }
     }

@@ -1,30 +1,37 @@
 package dlbcsemse02_d.project.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import dlbcsemse02_d.project.presentation.home.HomeScreen
-import dlbcsemse02_d.project.presentation.settings.SettingsScreen
+import dlbcsemse02_d.project.presentation.feedback.FeedbackScreen
+import dlbcsemse02_d.project.presentation.home.NowPlayingScreen
+import dlbcsemse02_d.project.presentation.playlist.PlaylistScreen
+import dlbcsemse02_d.project.presentation.rating.RatingScreen
 
 @Composable
 fun AppNavHost(modifier: Modifier) {
-    val navigator = rememberNavigator()
+    val navigator = LocalNavigator.current
 
-    CompositionLocalProvider(LocalNavigator provides navigator) {
-        NavHost(
-            navController = navigator.navController,
-            startDestination = HomeRoute,
-            modifier = modifier
-        ) {
-            composable<HomeRoute> {
-                HomeScreen()
-            }
+    NavHost(
+        navController = navigator.navController,
+        startDestination = NowPlaying,
+        modifier = modifier
+    ) {
+        composable<NowPlaying> {
+            NowPlayingScreen()
+        }
 
-            composable<SettingsRoute> {
-                SettingsScreen()
-            }
+        composable<Playlist> {
+            PlaylistScreen()
+        }
+
+        composable<Feedback> {
+            FeedbackScreen()
+        }
+
+        composable<Rating> {
+            RatingScreen()
         }
     }
 }

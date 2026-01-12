@@ -6,7 +6,13 @@ import kotlinx.serialization.Serializable
 sealed interface Route
 
 @Serializable
-data object HomeRoute : Route
+data object NowPlaying : Route
 
 @Serializable
-data object SettingsRoute : Route
+data object Playlist : Route
+
+@Serializable
+data object Feedback : Route
+
+@Serializable
+data object Rating : Route
