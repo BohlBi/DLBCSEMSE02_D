@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="now_playing">Es läuft grade</string>
+    <string name="paused">Pausiert</string>
+    <string name="remaining">verbleibend:</string>
+    <string name="seconds">Sekunden</string>
+    <string name="starting_playback">Wiedergabe wird gestartet</string>
+    <string name="try_again">Erneut versuchen</string>
+    <string name="pause">Pause</string>
+    <string name="play">Abspielen</string>
+</resources>

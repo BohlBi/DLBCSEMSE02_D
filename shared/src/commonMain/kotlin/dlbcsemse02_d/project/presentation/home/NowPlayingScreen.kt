@@ -1,6 +1,5 @@
 package dlbcsemse02_d.project.presentation.home
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,9 +24,73 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dlbcsemse02_d.project.navigation.LocalNavigator
-import dlbcsemse02_d.project.navigation.Feedback
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import radioapp.shared.generated.resources.Res
+import radioapp.shared.generated.resources.now_playing
+import radioapp.shared.generated.resources.pause
+import radioapp.shared.generated.resources.paused
+import radioapp.shared.generated.resources.play
+import radioapp.shared.generated.resources.remaining
+import radioapp.shared.generated.resources.seconds
+import radioapp.shared.generated.resources.starting_playback
+import radioapp.shared.generated.resources.try_again
+
+@Composable
+private fun SongCard(
+    song: dlbcsemse02_d.project.domain.model.Song?,
+    isPlaying: Boolean,
+    onActionClick: () -> Unit
+) {
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Box {
+            song?.let {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = stringResource(if (isPlaying) Res.string.now_playing else Res.string.paused),
+                        style = MaterialTheme.typography.labelMedium
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = it.title,
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+                    Text(
+                        text = it.interpret,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Text(
+                        text = it.album,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = "${stringResource(Res.string.remaining)} ${it.duration.toInt()} ${stringResource(Res.string.seconds)}",
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+
+                IconButton(
+                    onClick = onActionClick,
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(8.dp)
+                ) {
+                    Icon(
+                        imageVector = if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
+                        contentDescription = stringResource(if (isPlaying) Res.string.pause else Res.string.play)
+                    )
+                }
+            } ?: Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(64.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        }
+    }
+}
 
 @Composable
 @Preview
@@ -45,51 +108,15 @@ fun NowPlayingScreen(
         when (val state = uiState.mode) {
             is CurrentMode.Loading -> {
                 CircularProgressIndicator()
-                Text("Wiedergabe wird gestartet", modifier = Modifier.padding(top = 16.dp))
+                Text(stringResource(Res.string.starting_playback), modifier = Modifier.padding(top = 16.dp))
             }
 
             is CurrentMode.Playing -> {
-                uiState.song?.let { song ->
-                    Card(modifier = Modifier.fillMaxWidth()) {
-                        Box {
-                            Column(modifier = Modifier.padding(16.dp)) {
-                                Text(
-                                    text = "Now Playing",
-                                    style = MaterialTheme.typography.labelMedium
-                                )
-                                Spacer(modifier = Modifier.height(8.dp))
-                                Text(
-                                    text = song.title,
-                                    style = MaterialTheme.typography.headlineMedium
-                                )
-                                Text(
-                                    text = song.interpret,
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                                Text(
-                                    text = song.album,
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                                Text(
-                                    text = "Duration: ${song.duration.toInt()} seconds",
-                                    style = MaterialTheme.typography.bodySmall
-                                )
-                            }
-
-                            IconButton(
-                                onClick = { viewModel.onIntent(NowPlayingIntent.StopPlaying) },
-                                modifier = Modifier
-                                    .align(Alignment.BottomEnd)
-                                    .padding(8.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Pause,
-                                    contentDescription = "Pause"
-                                )
-                            }
-                        }
-                    }
-                }
+                SongCard(
+                    song = uiState.song,
+                    isPlaying = true,
+                    onActionClick = { viewModel.onIntent(NowPlayingIntent.StopPlaying) }
+                )
                 Spacer(modifier = Modifier.height(16.dp))
             }
 
@@ -103,59 +130,16 @@ fun NowPlayingScreen(
                 Button(onClick = {
                     viewModel.onIntent(NowPlayingIntent.StartPlaying)
                 }) {
-                    Text("Erneut versuchen")
+                    Text(stringResource(Res.string.try_again))
                 }
             }
 
             CurrentMode.Idle -> {
-                Card(modifier = Modifier.fillMaxWidth()) {
-                    Box {
-                        uiState.song?.let { song ->
-                            Column(modifier = Modifier.padding(16.dp)) {
-                                Text(
-                                    text = "Now Playing",
-                                    style = MaterialTheme.typography.labelMedium
-                                )
-                                Spacer(modifier = Modifier.height(8.dp))
-                                Text(
-                                    text = song.title,
-                                    style = MaterialTheme.typography.headlineMedium
-                                )
-                                Text(
-                                    text = song.interpret,
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                                Text(
-                                    text = song.album,
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                                Text(
-                                    text = "Duration: ${song.duration.toInt()} seconds",
-                                    style = MaterialTheme.typography.bodySmall
-                                )
-                            }
-
-                            IconButton(
-                                onClick = { viewModel.onIntent(NowPlayingIntent.StartPlaying) },
-                                modifier = Modifier
-                                    .align(Alignment.BottomEnd)
-                                    .padding(8.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.PlayArrow,
-                                    contentDescription = "Play"
-                                )
-                            }
-                        } ?: Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(64.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            CircularProgressIndicator()
-                        }
-                    }
-                }
+                SongCard(
+                    song = uiState.song,
+                    isPlaying = false,
+                    onActionClick = { viewModel.onIntent(NowPlayingIntent.StartPlaying) }
+                )
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
