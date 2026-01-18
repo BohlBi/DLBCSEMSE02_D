@@ -1,5 +1,7 @@
 package dlbcsemse02_d.project.application.service
 
+import dlbcsemse02_d.project.domain.model.Moderator
+import dlbcsemse02_d.project.domain.model.ModeratorRating
 import dlbcsemse02_d.project.domain.model.Song
 import dlbcsemse02_d.project.domain.repository.SongRepository
 
@@ -20,5 +22,13 @@ class SongService(
 
     suspend fun getPlaylistRating(): Result<Int?> {
         return songRepository.getPlaylistRating()
+    }
+
+    suspend fun getCurrentModerator(): Result<Moderator?> {
+        return songRepository.getCurrentModerator()
+    }
+
+    suspend fun rateModerator(rating: ModeratorRating): Result<Unit> {
+        return songRepository.rateModerator(rating)
     }
 }

@@ -26,4 +26,17 @@
     <string name="request_success_with_message">Your song request with message has been submitted!</string>
     <string name="request_error">Could not send request. Please try again.</string>
     <string name="characters_remaining">%1$d characters remaining</string>
+    <string name="like_what_you_hear">Like what you hear?</string>
+    <string name="rate_moderator">Rate Moderator</string>
+    <string name="current_moderator">Current Moderator: %1$s</string>
+    <string name="no_moderator">No moderator information available at the moment.</string>
+    <string name="select_rating">Please select a rating</string>
+    <string name="submit_rating">Submit Rating</string>
+    <string name="moderator_rating_success">Thanks for your feedback!</string>
+    <string name="moderator_rating_error">Could not submit rating. Please try again.</string>
+    <string name="rating_1">Not my vibe</string>
+    <string name="rating_2">Rather not my vibe</string>
+    <string name="rating_3">Neutral</string>
+    <string name="rating_4">Quite my vibe</string>
+    <string name="rating_5">Totally my vibe</string>
 </resources>

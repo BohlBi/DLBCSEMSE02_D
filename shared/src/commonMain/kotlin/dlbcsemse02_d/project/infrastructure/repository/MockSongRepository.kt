@@ -1,5 +1,7 @@
 package dlbcsemse02_d.project.infrastructure.repository
 
+import dlbcsemse02_d.project.domain.model.Moderator
+import dlbcsemse02_d.project.domain.model.ModeratorRating
 import dlbcsemse02_d.project.domain.model.Song
 import dlbcsemse02_d.project.domain.repository.SongRepository
 import kotlinx.coroutines.delay
@@ -37,8 +39,14 @@ class MockSongRepository : SongRepository {
         )
     )
 
+    private val mockModerator = Moderator(
+        id = "mod1",
+        name = "DJ Max"
+    )
+
     private var currentIndex = 0
     private var playlistRating: Int? = null
+    private val moderatorRatings = mutableListOf<ModeratorRating>()
 
     override suspend fun getCurrentSong(): Result<Song> {
         delay(500)
@@ -60,5 +68,16 @@ class MockSongRepository : SongRepository {
     override suspend fun getPlaylistRating(): Result<Int?> {
         delay(100)
         return Result.success(playlistRating)
+    }
+
+    override suspend fun getCurrentModerator(): Result<Moderator?> {
+        delay(100)
+        return Result.success(mockModerator)
+    }
+
+    override suspend fun rateModerator(rating: ModeratorRating): Result<Unit> {
+        delay(300)
+        moderatorRatings.add(rating)
+        return Result.success(Unit)
     }
 }

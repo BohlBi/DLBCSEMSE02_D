@@ -26,4 +26,17 @@
     <string name="request_success_with_message">Dein Songwunsch mit Nachricht wurde übermittelt!</string>
     <string name="request_error">Wunsch konnte nicht gesendet werden. Bitte versuche es erneut.</string>
     <string name="characters_remaining">%1$d Zeichen verbleibend</string>
+    <string name="like_what_you_hear">Gefällt dir was du hörst?</string>
+    <string name="rate_moderator">Moderator bewerten</string>
+    <string name="current_moderator">Aktueller Moderator: %1$s</string>
+    <string name="no_moderator">Momentan keine Moderator-Information verfügbar.</string>
+    <string name="select_rating">Bitte wähle eine Bewertung</string>
+    <string name="submit_rating">Bewertung abgeben</string>
+    <string name="moderator_rating_success">Danke für dein Feedback!</string>
+    <string name="moderator_rating_error">Bewertung konnte nicht gesendet werden. Bitte versuche es erneut.</string>
+    <string name="rating_1">Nicht mein Vibe</string>
+    <string name="rating_2">Eher nicht mein Vibe</string>
+    <string name="rating_3">Neutral</string>
+    <string name="rating_4">Schon mein Vibe</string>
+    <string name="rating_5">Voll mein Vibe</string>
 </resources>
