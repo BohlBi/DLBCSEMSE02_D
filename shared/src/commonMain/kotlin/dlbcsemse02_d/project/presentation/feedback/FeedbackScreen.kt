@@ -27,7 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import dlbcsemse02_d.project.application.service.SongRequestService
+import dlbcsemse02_d.project.application.service.SongService
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import radioapp.shared.generated.resources.Res
@@ -70,6 +70,7 @@ fun FeedbackScreen(
                 message = ""
                 if (result.hadMessage) successWithMessageText else successText
             }
+
             SubmitResult.Error -> errorText
         }
         snackbarHostState.showSnackbar(
@@ -192,7 +193,7 @@ private fun MessageTextField(
     enabled: Boolean,
     onValueChange: (String) -> Unit
 ) {
-    val remainingChars = SongRequestService.MAX_MESSAGE_LENGTH - value.length
+    val remainingChars = SongService.MAX_MESSAGE_LENGTH - value.length
 
     OutlinedTextField(
         value = value,
@@ -205,7 +206,10 @@ private fun MessageTextField(
         supportingText = {
             if (isError) {
                 Text(
-                    text = stringResource(Res.string.message_too_long, SongRequestService.MAX_MESSAGE_LENGTH),
+                    text = stringResource(
+                        Res.string.message_too_long,
+                        SongService.MAX_MESSAGE_LENGTH
+                    ),
                     color = MaterialTheme.colorScheme.error
                 )
             } else {

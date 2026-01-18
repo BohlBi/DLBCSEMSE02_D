@@ -1,7 +1,6 @@
 package dlbcsemse02_d.project.di
 
 import dlbcsemse02_d.project.application.service.ModeratorService
-import dlbcsemse02_d.project.application.service.SongRequestService
 import dlbcsemse02_d.project.application.service.SongService
 import dlbcsemse02_d.project.domain.repository.ModeratorRepository
 import dlbcsemse02_d.project.domain.repository.SongRepository
@@ -10,7 +9,6 @@ import dlbcsemse02_d.project.infrastructure.repository.MockDataStore
 import dlbcsemse02_d.project.infrastructure.repository.MockModeratorRepository
 import dlbcsemse02_d.project.infrastructure.repository.MockSongRepository
 import dlbcsemse02_d.project.infrastructure.repository.MockSongRequestRepository
-import dlbcsemse02_d.project.presentation.feedback.FeedbackViewModel
 import dlbcsemse02_d.project.presentation.moderator.ModeratorViewModel
 import dlbcsemse02_d.project.presentation.playing.NowPlayingViewModel
 import dlbcsemse02_d.project.presentation.playlist.PlaylistViewModel
@@ -25,15 +23,13 @@ val dataModule = module {
 }
 
 val applicationModule = module {
-    single { SongService(get()) }
-    single { SongRequestService(get()) }
+    single { SongService(get(), get()) }
     single { ModeratorService(get()) }
 }
 
 val viewModelModule = module {
     viewModelOf(::NowPlayingViewModel)
     viewModelOf(::PlaylistViewModel)
-    viewModelOf(::FeedbackViewModel)
     viewModelOf(::ModeratorViewModel)
 }
 

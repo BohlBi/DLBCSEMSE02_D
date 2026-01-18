@@ -2,7 +2,7 @@ package dlbcsemse02_d.project.presentation.feedback
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dlbcsemse02_d.project.application.service.SongRequestService
+import dlbcsemse02_d.project.application.service.SongService
 import dlbcsemse02_d.project.domain.model.SongRequest
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -38,7 +38,7 @@ data class FeedbackState(
 )
 
 class FeedbackViewModel(
-    private val songRequestService: SongRequestService
+    private val songService: SongService
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(FeedbackState())
@@ -54,7 +54,7 @@ class FeedbackViewModel(
     private fun submitRequest(artist: String, title: String, message: String) {
         val artistEmpty = artist.isBlank()
         val titleEmpty = title.isBlank()
-        val messageTooLong = message.length > SongRequestService.MAX_MESSAGE_LENGTH
+        val messageTooLong = message.length > SongService.MAX_MESSAGE_LENGTH
 
         if (artistEmpty || titleEmpty || messageTooLong) {
             _uiState.update {
@@ -82,7 +82,7 @@ class FeedbackViewModel(
                 timestamp = 0L
             )
 
-            songRequestService.submitSongRequest(request).fold(
+            songService.submitSongRequest(request).fold(
                 onFailure = {
                     _uiState.update {
                         it.copy(
