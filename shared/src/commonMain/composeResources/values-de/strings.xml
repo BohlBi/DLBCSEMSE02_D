@@ -44,10 +44,12 @@
     <string name="nav_feedback">Feedback</string>
     <string name="nav_moderator">Moderator</string>
     <string name="moderator_dashboard">Moderator Dashboard</string>
-    <string name="ratings_section">Bewertungen</string>
+    <string name="moderator_ratings_section">Moderator-Bewertungen</string>
+    <string name="playlist_ratings_section">Playlist-Bewertungen</string>
     <string name="song_requests_section">Songwünsche</string>
     <string name="new_badge">NEU</string>
-    <string name="no_ratings">Noch keine Bewertungen</string>
+    <string name="no_moderator_ratings">Noch keine Moderator-Bewertungen</string>
+    <string name="no_playlist_ratings">Noch keine Playlist-Bewertungen</string>
     <string name="no_song_requests">Noch keine Songwünsche</string>
     <string name="stars_format">%1$d Sterne</string>
 </resources>

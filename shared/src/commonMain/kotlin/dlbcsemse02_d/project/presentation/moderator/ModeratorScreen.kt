@@ -30,15 +30,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dlbcsemse02_d.project.domain.model.ModeratorRating
+import dlbcsemse02_d.project.domain.model.PlaylistRating
 import dlbcsemse02_d.project.domain.model.SongRequest
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import radioapp.shared.generated.resources.Res
 import radioapp.shared.generated.resources.moderator_dashboard
+import radioapp.shared.generated.resources.moderator_ratings_section
 import radioapp.shared.generated.resources.new_badge
-import radioapp.shared.generated.resources.no_ratings
+import radioapp.shared.generated.resources.no_moderator_ratings
+import radioapp.shared.generated.resources.no_playlist_ratings
 import radioapp.shared.generated.resources.no_song_requests
-import radioapp.shared.generated.resources.ratings_section
+import radioapp.shared.generated.resources.playlist_ratings_section
 import radioapp.shared.generated.resources.song_requests_section
 import radioapp.shared.generated.resources.stars_format
 
@@ -86,18 +89,35 @@ fun ModeratorScreen(
                 Column(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    SectionHeader(text = stringResource(Res.string.ratings_section))
+                    SectionHeader(text = stringResource(Res.string.moderator_ratings_section))
                     Spacer(modifier = Modifier.height(8.dp))
 
                     if (uiState.ratings.isEmpty()) {
-                        EmptyStateCard(text = stringResource(Res.string.no_ratings))
+                        EmptyStateCard(text = stringResource(Res.string.no_moderator_ratings))
                     } else {
                         LazyColumn(
                             modifier = Modifier.weight(1f),
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             items(uiState.ratings) { rating ->
-                                RatingCard(rating = rating)
+                                ModeratorRatingCard(rating = rating)
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+                    SectionHeader(text = stringResource(Res.string.playlist_ratings_section))
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    if (uiState.playlistRatings.isEmpty()) {
+                        EmptyStateCard(text = stringResource(Res.string.no_playlist_ratings))
+                    } else {
+                        LazyColumn(
+                            modifier = Modifier.weight(1f),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            items(uiState.playlistRatings) { rating ->
+                                PlaylistRatingCard(rating = rating)
                             }
                         }
                     }
@@ -154,7 +174,43 @@ private fun EmptyStateCard(text: String) {
 }
 
 @Composable
-private fun RatingCard(rating: ModeratorRating) {
+private fun ModeratorRatingCard(rating: ModeratorRating) {
+    Card(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                repeat(rating.score) {
+                    Icon(
+                        imageVector = Icons.Filled.Star,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = stringResource(Res.string.stars_format, rating.score),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
+            if (!rating.seen) {
+                NewBadge()
+            }
+        }
+    }
+}
+
+@Composable
+private fun PlaylistRatingCard(rating: PlaylistRating) {
     Card(
         modifier = Modifier.fillMaxWidth()
     ) {

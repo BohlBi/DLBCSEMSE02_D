@@ -63,6 +63,7 @@ class MockSongRepository(
     override suspend fun ratePlaylist(stars: Int): Result<Unit> {
         delay(200)
         playlistRating = stars
+        dataStore.addPlaylistRating(stars)
         return Result.success(Unit)
     }
 

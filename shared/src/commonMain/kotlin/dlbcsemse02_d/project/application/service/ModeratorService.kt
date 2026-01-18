@@ -1,6 +1,7 @@
 package dlbcsemse02_d.project.application.service
 
 import dlbcsemse02_d.project.domain.model.ModeratorRating
+import dlbcsemse02_d.project.domain.model.PlaylistRating
 import dlbcsemse02_d.project.domain.model.SongRequest
 import dlbcsemse02_d.project.domain.repository.ModeratorRepository
 import kotlinx.coroutines.flow.Flow
@@ -14,6 +15,14 @@ class ModeratorService(
 
     suspend fun markRatingsAsSeen(ratingIds: List<String>): Result<Unit> {
         return moderatorRepository.markRatingsAsSeen(ratingIds)
+    }
+
+    suspend fun getPlaylistRatings(): Result<List<PlaylistRating>> {
+        return moderatorRepository.getPlaylistRatings()
+    }
+
+    suspend fun markPlaylistRatingsAsSeen(ratingIds: List<String>): Result<Unit> {
+        return moderatorRepository.markPlaylistRatingsAsSeen(ratingIds)
     }
 
     suspend fun getSongRequests(): Result<List<SongRequest>> {
