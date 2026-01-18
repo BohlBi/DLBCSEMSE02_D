@@ -15,4 +15,4 @@ data object Playlist : Route
 data object Feedback : Route
 
 @Serializable
-data object Rating : Route
+data object Moderator : Route

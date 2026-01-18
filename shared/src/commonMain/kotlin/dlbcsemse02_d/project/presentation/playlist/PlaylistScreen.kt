@@ -10,13 +10,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -36,12 +39,14 @@ import radioapp.shared.generated.resources.rate_playlist
 import radioapp.shared.generated.resources.rating_error
 import radioapp.shared.generated.resources.rating_toast
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlaylistScreen(
     viewModel: PlaylistViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
+    val sheetState = rememberModalBottomSheetState()
     val dismissText = stringResource(Res.string.dismiss)
     val errorText = stringResource(Res.string.rating_error)
     val successText = (uiState.ratingResult as? RatingResult.Success)?.let {
@@ -105,7 +110,7 @@ fun PlaylistScreen(
 
                     LazyColumn(
                         modifier = Modifier
-                            .weight(0.7f)
+                            .weight(1f)
                             .fillMaxWidth(),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
@@ -133,28 +138,30 @@ fun PlaylistScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    Column(
-                        modifier = Modifier
-                            .weight(0.3f)
-                            .fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+                    Button(
+                        onClick = { viewModel.onIntent(PlaylistIntent.OpenRatingSheet) },
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(
-                            text = stringResource(Res.string.rate_playlist),
-                            style = MaterialTheme.typography.headlineSmall
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        StarRating(
-                            rating = uiState.rating ?: 0,
-                            onRatingChanged = { stars ->
-                                viewModel.onIntent(PlaylistIntent.RatePlaylist(stars))
-                            }
-                        )
+                        Text(stringResource(Res.string.rate_playlist))
                     }
+
                 }
             }
         }
+    }
+
+    if (uiState.showRatingSheet) {
+        PlaylistRatingSheet(
+            sheetState = sheetState,
+            currentRating = uiState.rating,
+            isSubmitting = uiState.isSubmittingRating,
+            onSubmit = { stars ->
+                viewModel.onIntent(PlaylistIntent.RatePlaylist(stars))
+            },
+            onDismiss = {
+                viewModel.onIntent(PlaylistIntent.CloseRatingSheet)
+            }
+        )
     }
 }
 

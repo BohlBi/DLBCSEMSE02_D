@@ -135,9 +135,10 @@ class NowPlayingViewModel(
 
         viewModelScope.launch {
             val rating = ModeratorRating(
+                id = "",
                 moderatorId = moderator.id,
                 score = score,
-                timestamp = System.currentTimeMillis()
+                timestamp = 0L
             )
 
             songService.rateModerator(rating).fold(

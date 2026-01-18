@@ -12,6 +12,8 @@ import kotlinx.coroutines.launch
 
 sealed class PlaylistIntent {
     data object LoadPlaylist : PlaylistIntent()
+    data object OpenRatingSheet : PlaylistIntent()
+    data object CloseRatingSheet : PlaylistIntent()
     data class RatePlaylist(val stars: Int) : PlaylistIntent()
     data object DismissRatingResult : PlaylistIntent()
 }
@@ -31,7 +33,9 @@ data class PlaylistState(
     val mode: PlaylistMode = PlaylistMode.Loading,
     val songs: List<Song> = emptyList(),
     val rating: Int? = null,
-    val ratingResult: RatingResult? = null
+    val ratingResult: RatingResult? = null,
+    val showRatingSheet: Boolean = false,
+    val isSubmittingRating: Boolean = false
 )
 
 class PlaylistViewModel(
@@ -48,9 +52,19 @@ class PlaylistViewModel(
     fun onIntent(intent: PlaylistIntent) {
         when (intent) {
             PlaylistIntent.LoadPlaylist -> loadPlaylist()
+            PlaylistIntent.OpenRatingSheet -> openRatingSheet()
+            PlaylistIntent.CloseRatingSheet -> closeRatingSheet()
             is PlaylistIntent.RatePlaylist -> ratePlaylist(intent.stars)
             PlaylistIntent.DismissRatingResult -> dismissRatingResult()
         }
+    }
+
+    private fun openRatingSheet() {
+        _uiState.update { it.copy(showRatingSheet = true) }
+    }
+
+    private fun closeRatingSheet() {
+        _uiState.update { it.copy(showRatingSheet = false) }
     }
 
     private fun loadPlaylist() {
@@ -73,16 +87,25 @@ class PlaylistViewModel(
     }
 
     private fun ratePlaylist(stars: Int) {
+        _uiState.update { it.copy(isSubmittingRating = true) }
         viewModelScope.launch {
             songService.ratePlaylist(stars).fold(
                 onFailure = {
                     _uiState.update {
-                        it.copy(ratingResult = RatingResult.Error)
+                        it.copy(
+                            isSubmittingRating = false,
+                            ratingResult = RatingResult.Error
+                        )
                     }
                 },
                 onSuccess = {
                     _uiState.update {
-                        it.copy(rating = stars, ratingResult = RatingResult.Success(stars))
+                        it.copy(
+                            isSubmittingRating = false,
+                            showRatingSheet = false,
+                            rating = stars,
+                            ratingResult = RatingResult.Success(stars)
+                        )
                     }
                 }
             )

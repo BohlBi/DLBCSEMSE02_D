@@ -22,7 +22,7 @@ class Navigator(internal val navController: NavHostController) {
             NowPlaying::class.qualifiedName -> NowPlaying
             Playlist::class.qualifiedName -> Playlist
             Feedback::class.qualifiedName -> Feedback
-            Rating::class.qualifiedName -> Rating
+            Moderator::class.qualifiedName -> Moderator
             else -> null
         }
     }

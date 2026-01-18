@@ -6,7 +6,9 @@ import dlbcsemse02_d.project.domain.model.Song
 import dlbcsemse02_d.project.domain.repository.SongRepository
 import kotlinx.coroutines.delay
 
-class MockSongRepository : SongRepository {
+class MockSongRepository(
+    private val dataStore: MockDataStore
+) : SongRepository {
 
     private val mockSongs = listOf(
         Song(
@@ -46,7 +48,6 @@ class MockSongRepository : SongRepository {
 
     private var currentIndex = 0
     private var playlistRating: Int? = null
-    private val moderatorRatings = mutableListOf<ModeratorRating>()
 
     override suspend fun getCurrentSong(): Result<Song> {
         delay(500)
@@ -77,7 +78,7 @@ class MockSongRepository : SongRepository {
 
     override suspend fun rateModerator(rating: ModeratorRating): Result<Unit> {
         delay(300)
-        moderatorRatings.add(rating)
+        dataStore.addModeratorRating(rating.moderatorId, rating.score)
         return Result.success(Unit)
     }
 }

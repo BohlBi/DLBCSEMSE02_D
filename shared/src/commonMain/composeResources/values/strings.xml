@@ -39,4 +39,15 @@
     <string name="rating_3">Neutral</string>
     <string name="rating_4">Quite my vibe</string>
     <string name="rating_5">Totally my vibe</string>
+    <string name="nav_now_playing">Now Playing</string>
+    <string name="nav_playlist">Playlist</string>
+    <string name="nav_feedback">Feedback</string>
+    <string name="nav_moderator">Moderator</string>
+    <string name="moderator_dashboard">Moderator Dashboard</string>
+    <string name="ratings_section">Ratings</string>
+    <string name="song_requests_section">Song Requests</string>
+    <string name="new_badge">NEW</string>
+    <string name="no_ratings">No ratings yet</string>
+    <string name="no_song_requests">No song requests yet</string>
+    <string name="stars_format">%1$d Stars</string>
 </resources>

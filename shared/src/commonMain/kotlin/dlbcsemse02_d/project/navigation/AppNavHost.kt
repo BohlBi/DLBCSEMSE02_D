@@ -5,9 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import dlbcsemse02_d.project.presentation.feedback.FeedbackScreen
+import dlbcsemse02_d.project.presentation.moderator.ModeratorScreen
 import dlbcsemse02_d.project.presentation.playing.NowPlayingScreen
 import dlbcsemse02_d.project.presentation.playlist.PlaylistScreen
-import dlbcsemse02_d.project.presentation.rating.RatingScreen
 
 @Composable
 fun AppNavHost(modifier: Modifier) {
@@ -30,8 +30,8 @@ fun AppNavHost(modifier: Modifier) {
             FeedbackScreen()
         }
 
-        composable<Rating> {
-            RatingScreen()
+        composable<Moderator> {
+            ModeratorScreen()
         }
     }
 }

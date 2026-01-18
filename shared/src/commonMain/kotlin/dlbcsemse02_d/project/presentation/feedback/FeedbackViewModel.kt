@@ -75,9 +75,11 @@ class FeedbackViewModel(
 
         viewModelScope.launch {
             val request = SongRequest(
+                id = "",
                 artist = artist.trim(),
                 title = title.trim(),
-                message = message.trim().ifBlank { null }
+                message = message.trim().ifBlank { null },
+                timestamp = 0L
             )
 
             songRequestService.submitSongRequest(request).fold(
