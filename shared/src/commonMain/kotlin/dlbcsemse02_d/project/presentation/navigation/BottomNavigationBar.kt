@@ -1,9 +1,9 @@
-package dlbcsemse02_d.project.presentation.components
+package dlbcsemse02_d.project.presentation.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.QueueMusic
 import androidx.compose.material.icons.filled.Feedback
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.QueueMusic
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -28,7 +28,7 @@ fun BottomNavigationBar() {
             onClick = { navigator.navigateTo(NowPlaying) }
         )
         NavigationBarItem(
-            icon = { Icon(Icons.Filled.QueueMusic, contentDescription = "Playlist") },
+            icon = { Icon(Icons.AutoMirrored.Filled.QueueMusic, contentDescription = "Playlist") },
             label = { Text("Playlist") },
             selected = currentRoute is Playlist,
             onClick = { navigator.navigateTo(Playlist) }

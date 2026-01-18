@@ -8,4 +8,10 @@
     <string name="try_again">Erneut versuchen</string>
     <string name="pause">Pause</string>
     <string name="play">Abspielen</string>
+    <string name="rate_playlist">Bewerte die Playlist</string>
+    <string name="rating_toast">Du hast die Playlist mit %1$d Sternen bewertet!</string>
+    <string name="dismiss">Schließen</string>
+    <string name="playlist">Playlist</string>
+    <string name="coming_next">Als Nächstes</string>
+    <string name="rating_error">Etwas ist schief gelaufen. Bitte versuche es erneut.</string>
 </resources>

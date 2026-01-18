@@ -14,7 +14,7 @@ import dlbcsemse02_d.project.di.appModule
 import dlbcsemse02_d.project.navigation.AppNavHost
 import dlbcsemse02_d.project.navigation.LocalNavigator
 import dlbcsemse02_d.project.navigation.rememberNavigator
-import dlbcsemse02_d.project.presentation.components.BottomNavigationBar
+import dlbcsemse02_d.project.presentation.navigation.BottomNavigationBar
 import org.koin.compose.KoinApplication
 import org.koin.dsl.koinConfiguration
 

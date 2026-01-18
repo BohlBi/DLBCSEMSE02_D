@@ -38,10 +38,27 @@ class MockSongRepository : SongRepository {
     )
 
     private var currentIndex = 0
+    private var playlistRating: Int? = null
 
     override suspend fun getCurrentSong(): Result<Song> {
         delay(500)
         val song = mockSongs[currentIndex]
         return Result.success(song)
+    }
+
+    override suspend fun getPlaylist(): Result<List<Song>> {
+        delay(300)
+        return Result.success(mockSongs)
+    }
+
+    override suspend fun ratePlaylist(stars: Int): Result<Unit> {
+        delay(200)
+        playlistRating = stars
+        return Result.success(Unit)
+    }
+
+    override suspend fun getPlaylistRating(): Result<Int?> {
+        delay(100)
+        return Result.success(playlistRating)
     }
 }

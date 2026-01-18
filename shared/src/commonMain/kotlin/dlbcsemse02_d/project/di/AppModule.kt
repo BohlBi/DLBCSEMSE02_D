@@ -4,6 +4,7 @@ import dlbcsemse02_d.project.application.service.SongService
 import dlbcsemse02_d.project.domain.repository.SongRepository
 import dlbcsemse02_d.project.infrastructure.repository.MockSongRepository
 import dlbcsemse02_d.project.presentation.playing.NowPlayingViewModel
+import dlbcsemse02_d.project.presentation.playlist.PlaylistViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -24,6 +25,7 @@ val applicationModule = module {
 
 val viewModelModule = module {
     viewModelOf(::NowPlayingViewModel)
+    viewModelOf(::PlaylistViewModel)
 }
 
 val appModule = module {
