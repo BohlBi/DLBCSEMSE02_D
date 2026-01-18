@@ -1,22 +1,15 @@
 package dlbcsemse02_d.project.presentation.playing
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
@@ -31,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import dlbcsemse02_d.project.domain.model.Moderator
+import dlbcsemse02_d.project.presentation.playlist.StarRating
 import org.jetbrains.compose.resources.stringResource
 import radioapp.shared.generated.resources.Res
 import radioapp.shared.generated.resources.current_moderator
@@ -100,9 +94,9 @@ fun ModeratorRatingSheet(
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    StarRatingSelector(
-                        selectedRating = selectedRating,
-                        onRatingSelected = { selectedRating = it }
+                    StarRating(
+                        rating = selectedRating ?: 0,
+                        onRatingChanged = { selectedRating = it }
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -144,35 +138,6 @@ fun ModeratorRatingSheet(
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun StarRatingSelector(
-    selectedRating: Int?,
-    onRatingSelected: (Int) -> Unit
-) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        for (i in 1..5) {
-            Icon(
-                imageVector = if (selectedRating != null && i <= selectedRating) {
-                    Icons.Filled.Star
-                } else {
-                    Icons.Outlined.Star
-                },
-                contentDescription = "Star $i",
-                modifier = Modifier
-                    .size(48.dp)
-                    .clickable { onRatingSelected(i) },
-                tint = if (selectedRating != null && i <= selectedRating) {
-                    MaterialTheme.colorScheme.primary
-                } else {
-                    MaterialTheme.colorScheme.onSurfaceVariant
-                }
-            )
         }
     }
 }
