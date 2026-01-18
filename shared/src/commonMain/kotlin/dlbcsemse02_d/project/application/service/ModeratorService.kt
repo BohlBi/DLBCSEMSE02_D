@@ -3,6 +3,7 @@ package dlbcsemse02_d.project.application.service
 import dlbcsemse02_d.project.domain.model.ModeratorRating
 import dlbcsemse02_d.project.domain.model.SongRequest
 import dlbcsemse02_d.project.domain.repository.ModeratorRepository
+import kotlinx.coroutines.flow.Flow
 
 class ModeratorService(
     private val moderatorRepository: ModeratorRepository
@@ -23,7 +24,7 @@ class ModeratorService(
         return moderatorRepository.markSongRequestsAsSeen(requestIds)
     }
 
-    suspend fun getUnseenCount(): Result<Int> {
-        return moderatorRepository.getUnseenCount()
+    fun getUnseenCountFlow(): Flow<Int> {
+        return moderatorRepository.getUnseenCountFlow()
     }
 }

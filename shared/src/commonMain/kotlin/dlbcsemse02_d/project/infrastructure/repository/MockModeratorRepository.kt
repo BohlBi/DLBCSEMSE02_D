@@ -4,6 +4,7 @@ import dlbcsemse02_d.project.domain.model.ModeratorRating
 import dlbcsemse02_d.project.domain.model.SongRequest
 import dlbcsemse02_d.project.domain.repository.ModeratorRepository
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 
 class MockModeratorRepository(
     private val dataStore: MockDataStore
@@ -31,7 +32,7 @@ class MockModeratorRepository(
         return Result.success(Unit)
     }
 
-    override suspend fun getUnseenCount(): Result<Int> {
-        return Result.success(dataStore.getUnseenCount())
+    override fun getUnseenCountFlow(): Flow<Int> {
+        return dataStore.unseenCountFlow
     }
 }

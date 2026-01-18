@@ -2,10 +2,16 @@ package dlbcsemse02_d.project.infrastructure.repository
 
 import dlbcsemse02_d.project.domain.model.ModeratorRating
 import dlbcsemse02_d.project.domain.model.SongRequest
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class MockDataStore {
     val moderatorRatings = mutableListOf<ModeratorRating>()
     val songRequests = mutableListOf<SongRequest>()
+
+    private val _unseenCountFlow = MutableStateFlow(0)
+    val unseenCountFlow: StateFlow<Int> = _unseenCountFlow.asStateFlow()
 
     private var ratingIdCounter = 0
     private var requestIdCounter = 0
@@ -40,6 +46,7 @@ class MockDataStore {
                 timestamp = nextTimestamp()
             )
         )
+        updateUnseenCount()
     }
 
     fun addModeratorRating(moderatorId: String, score: Int): ModeratorRating {
@@ -51,6 +58,7 @@ class MockDataStore {
             seen = false
         )
         moderatorRatings.add(rating)
+        updateUnseenCount()
         return rating
     }
 
@@ -63,6 +71,7 @@ class MockDataStore {
             timestamp = nextTimestamp()
         )
         songRequests.add(request)
+        updateUnseenCount()
         return request
     }
 
@@ -73,6 +82,7 @@ class MockDataStore {
                 moderatorRatings[index] = moderatorRatings[index].copy(seen = true)
             }
         }
+        updateUnseenCount()
     }
 
     fun markSongRequestsAsSeen(ids: List<String>) {
@@ -82,10 +92,11 @@ class MockDataStore {
                 songRequests[index] = songRequests[index].copy(seen = true)
             }
         }
+        updateUnseenCount()
     }
 
-    fun getUnseenCount(): Int {
-        return moderatorRatings.count { !it.seen } + songRequests.count { !it.seen }
+    private fun updateUnseenCount() {
+        _unseenCountFlow.value = moderatorRatings.count { !it.seen } + songRequests.count { !it.seen }
     }
 
     private fun nextTimestamp(): Long {

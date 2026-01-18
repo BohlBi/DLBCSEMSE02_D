@@ -18,18 +18,15 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import dlbcsemse02_d.project.application.service.ModeratorService
 import dlbcsemse02_d.project.navigation.Feedback
 import dlbcsemse02_d.project.navigation.LocalNavigator
 import dlbcsemse02_d.project.navigation.NowPlaying
 import dlbcsemse02_d.project.navigation.Playlist
 import dlbcsemse02_d.project.navigation.Moderator
 import org.jetbrains.compose.resources.stringResource
-import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import radioapp.shared.generated.resources.Res
 import radioapp.shared.generated.resources.nav_feedback
 import radioapp.shared.generated.resources.nav_moderator
@@ -38,18 +35,18 @@ import radioapp.shared.generated.resources.nav_playlist
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomNavigationBar() {
+fun BottomNavigationBar(
+    viewModel: NavigationViewModel = koinViewModel()
+) {
     val navigator = LocalNavigator.current
-    val currentRoute = navigator.getCurrentRoute()
-    val moderatorService: ModeratorService = koinInject()
+    val observedRoute = navigator.getCurrentRoute()
+    val uiState by viewModel.uiState.collectAsState()
 
-    var unseenCount by remember { mutableIntStateOf(0) }
-
-    LaunchedEffect(currentRoute) {
-        moderatorService.getUnseenCount().onSuccess {
-            unseenCount = it
-        }
+    LaunchedEffect(observedRoute) {
+        viewModel.onRouteChanged(observedRoute)
     }
+
+    val currentRoute = uiState.currentRoute
 
     val nowPlayingLabel = stringResource(Res.string.nav_now_playing)
     val playlistLabel = stringResource(Res.string.nav_playlist)
@@ -60,38 +57,38 @@ fun BottomNavigationBar() {
         NavigationBarItem(
             icon = { Icon(Icons.Filled.Home, contentDescription = nowPlayingLabel) },
             label = { Text(nowPlayingLabel) },
-            selected = currentRoute is NowPlaying,
+            selected = currentRoute == NowPlaying,
             onClick = { navigator.navigateTo(NowPlaying) }
         )
         NavigationBarItem(
             icon = { Icon(Icons.AutoMirrored.Filled.QueueMusic, contentDescription = playlistLabel) },
             label = { Text(playlistLabel) },
-            selected = currentRoute is Playlist,
+            selected = currentRoute == Playlist,
             onClick = { navigator.navigateTo(Playlist) }
         )
         NavigationBarItem(
             icon = { Icon(Icons.Filled.Feedback, contentDescription = feedbackLabel) },
             label = { Text(feedbackLabel) },
-            selected = currentRoute is Feedback,
+            selected = currentRoute == Feedback,
             onClick = { navigator.navigateTo(Feedback) }
         )
         NavigationBarItem(
             icon = {
                 Box {
                     Icon(Icons.Filled.Person, contentDescription = moderatorLabel)
-                    if (unseenCount > 0) {
+                    if (uiState.unseenCount > 0) {
                         Badge(
                             modifier = Modifier
                                 .align(Alignment.TopEnd)
                                 .offset(x = 6.dp, y = (-6).dp)
                         ) {
-                            Text(unseenCount.toString())
+                            Text(uiState.unseenCount.toString())
                         }
                     }
                 }
             },
             label = { Text(moderatorLabel) },
-            selected = currentRoute is Moderator,
+            selected = currentRoute == Moderator,
             onClick = { navigator.navigateTo(Moderator) }
         )
     }
