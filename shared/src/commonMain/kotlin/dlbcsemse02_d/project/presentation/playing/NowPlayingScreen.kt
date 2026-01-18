@@ -1,4 +1,4 @@
-package dlbcsemse02_d.project.presentation.home
+package dlbcsemse02_d.project.presentation.playing
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,7 +22,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -64,7 +63,11 @@ private fun SongCard(
                         style = MaterialTheme.typography.bodyMedium
                     )
                     Text(
-                        text = "${stringResource(Res.string.remaining)} ${it.duration.toInt()} ${stringResource(Res.string.seconds)}",
+                        text = "${stringResource(Res.string.remaining)} ${it.duration.toInt()} ${
+                            stringResource(
+                                Res.string.seconds
+                            )
+                        }",
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
@@ -93,7 +96,6 @@ private fun SongCard(
 }
 
 @Composable
-@Preview
 fun NowPlayingScreen(
     viewModel: NowPlayingViewModel = koinViewModel()
 ) {
@@ -108,7 +110,10 @@ fun NowPlayingScreen(
         when (val state = uiState.mode) {
             is CurrentMode.Loading -> {
                 CircularProgressIndicator()
-                Text(stringResource(Res.string.starting_playback), modifier = Modifier.padding(top = 16.dp))
+                Text(
+                    stringResource(Res.string.starting_playback),
+                    modifier = Modifier.padding(top = 16.dp)
+                )
             }
 
             is CurrentMode.Playing -> {

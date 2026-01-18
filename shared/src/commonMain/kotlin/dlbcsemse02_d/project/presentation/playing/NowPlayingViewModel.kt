@@ -1,4 +1,4 @@
-package dlbcsemse02_d.project.presentation.home
+package dlbcsemse02_d.project.presentation.playing
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
