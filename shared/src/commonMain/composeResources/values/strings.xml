@@ -14,4 +14,16 @@
     <string name="playlist">Playlist</string>
     <string name="coming_next">Coming Next</string>
     <string name="rating_error">Something went wrong. Please try again.</string>
+    <string name="song_request">Song Request</string>
+    <string name="artist">Artist</string>
+    <string name="song_title">Title</string>
+    <string name="message_optional">Message (optional)</string>
+    <string name="send_request">Send Request</string>
+    <string name="artist_required">Please enter an artist</string>
+    <string name="title_required">Please enter a title</string>
+    <string name="message_too_long">Message is too long (max. %1$d characters)</string>
+    <string name="request_success">Your song request has been submitted!</string>
+    <string name="request_success_with_message">Your song request with message has been submitted!</string>
+    <string name="request_error">Could not send request. Please try again.</string>
+    <string name="characters_remaining">%1$d characters remaining</string>
 </resources>

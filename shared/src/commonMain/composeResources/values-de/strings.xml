@@ -14,4 +14,16 @@
     <string name="playlist">Playlist</string>
     <string name="coming_next">Als Nächstes</string>
     <string name="rating_error">Etwas ist schief gelaufen. Bitte versuche es erneut.</string>
+    <string name="song_request">Songwunsch</string>
+    <string name="artist">Interpret</string>
+    <string name="song_title">Titel</string>
+    <string name="message_optional">Nachricht (optional)</string>
+    <string name="send_request">Wunsch absenden</string>
+    <string name="artist_required">Bitte gib einen Interpreten ein</string>
+    <string name="title_required">Bitte gib einen Titel ein</string>
+    <string name="message_too_long">Nachricht ist zu lang (max. %1$d Zeichen)</string>
+    <string name="request_success">Dein Songwunsch wurde übermittelt!</string>
+    <string name="request_success_with_message">Dein Songwunsch mit Nachricht wurde übermittelt!</string>
+    <string name="request_error">Wunsch konnte nicht gesendet werden. Bitte versuche es erneut.</string>
+    <string name="characters_remaining">%1$d Zeichen verbleibend</string>
 </resources>
