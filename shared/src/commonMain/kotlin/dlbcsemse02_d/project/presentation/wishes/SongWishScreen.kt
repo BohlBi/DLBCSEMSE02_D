@@ -1,4 +1,4 @@
-package dlbcsemse02_d.project.presentation.feedback
+package dlbcsemse02_d.project.presentation.wishes
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -2,16 +2,13 @@ package dlbcsemse02_d.project.presentation.navigation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Message
 import androidx.compose.material.icons.automirrored.filled.QueueMusic
-import androidx.compose.material.icons.filled.Feedback
-import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Badge
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -20,11 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import dlbcsemse02_d.project.navigation.Feedback
 import dlbcsemse02_d.project.navigation.LocalNavigator
+import dlbcsemse02_d.project.navigation.Moderator
 import dlbcsemse02_d.project.navigation.NowPlaying
 import dlbcsemse02_d.project.navigation.Playlist
-import dlbcsemse02_d.project.navigation.Moderator
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import radioapp.shared.generated.resources.Res
@@ -55,19 +55,24 @@ fun BottomNavigationBar(
 
     NavigationBar {
         NavigationBarItem(
-            icon = { Icon(Icons.Filled.Home, contentDescription = nowPlayingLabel) },
+            icon = { Icon(Icons.Filled.MusicNote, contentDescription = nowPlayingLabel) },
             label = { Text(nowPlayingLabel) },
             selected = currentRoute == NowPlaying,
             onClick = { navigator.navigateTo(NowPlaying) }
         )
         NavigationBarItem(
-            icon = { Icon(Icons.AutoMirrored.Filled.QueueMusic, contentDescription = playlistLabel) },
+            icon = {
+                Icon(
+                    Icons.AutoMirrored.Filled.QueueMusic,
+                    contentDescription = playlistLabel
+                )
+            },
             label = { Text(playlistLabel) },
             selected = currentRoute == Playlist,
             onClick = { navigator.navigateTo(Playlist) }
         )
         NavigationBarItem(
-            icon = { Icon(Icons.Filled.Feedback, contentDescription = feedbackLabel) },
+            icon = { Icon(Icons.AutoMirrored.Filled.Message, contentDescription = feedbackLabel) },
             label = { Text(feedbackLabel) },
             selected = currentRoute == Feedback,
             onClick = { navigator.navigateTo(Feedback) }

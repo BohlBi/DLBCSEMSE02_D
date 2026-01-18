@@ -9,7 +9,7 @@ import dlbcsemse02_d.project.infrastructure.repository.MockDataStore
 import dlbcsemse02_d.project.infrastructure.repository.MockModeratorRepository
 import dlbcsemse02_d.project.infrastructure.repository.MockSongRepository
 import dlbcsemse02_d.project.infrastructure.repository.MockSongRequestRepository
-import dlbcsemse02_d.project.presentation.feedback.FeedbackViewModel
+import dlbcsemse02_d.project.presentation.wishes.FeedbackViewModel
 import dlbcsemse02_d.project.presentation.moderator.ModeratorViewModel
 import dlbcsemse02_d.project.presentation.navigation.NavigationViewModel
 import dlbcsemse02_d.project.presentation.playing.NowPlayingViewModel
