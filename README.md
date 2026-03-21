@@ -1,3 +1,6 @@
+## Demo video aus der laufenden Anwendung 
+https://www.youtube.com/shorts/F5_FK3BoyEY
+
 ## Radio App (Kotlin Multiplatform)
 
   Prototypische Radio-App mit klarer Schichtenarchitektur (UI/ViewModel -> Services -> Repositories/Stubs).
