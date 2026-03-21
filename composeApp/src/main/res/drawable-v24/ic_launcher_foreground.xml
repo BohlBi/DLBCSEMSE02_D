@@ -1,0 +1,117 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="1024"
+    android:viewportHeight="1024">
+
+    <!--
+      FINAL:
+      - Safe-Area: scale 0.68 mit leichtem Downshift für bessere optische Zentrierung
+      - Stroke: etwas dünner, damit es bei kleinen Größen crisp bleibt
+    -->
+    <group
+        android:scaleX="0.68"
+        android:scaleY="0.68"
+        android:translateX="164"
+        android:translateY="186">
+
+        <!-- Radio body -->
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="36"
+            android:strokeLineJoin="round"
+            android:strokeLineCap="round"
+            android:pathData="M256,352
+                              h512
+                              a104,104 0 0 1 104,104
+                              v240
+                              a104,104 0 0 1 -104,104
+                              h-512
+                              a104,104 0 0 1 -104,-104
+                              v-240
+                              a104,104 0 0 1 104,-104
+                              z"/>
+
+        <!-- Antenna (slightly shorter + less aggressive angle) -->
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="36"
+            android:strokeLineJoin="round"
+            android:strokeLineCap="round"
+            android:pathData="M416,336 L744,204"/>
+
+        <!-- Antenna tip -->
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M772,192
+                              m-24,0
+                              a24,24 0 1,0 48,0
+                              a24,24 0 1,0 -48,0"/>
+
+        <!-- Big dial -->
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="36"
+            android:pathData="M360,560
+                              m-132,0
+                              a132,132 0 1,0 264,0
+                              a132,132 0 1,0 -264,0"/>
+
+        <!-- Inner wave detail -->
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="26"
+            android:strokeLineCap="round"
+            android:pathData="M306,540
+                              c34,-26 74,-26 108,0"/>
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="26"
+            android:strokeLineCap="round"
+            android:pathData="M292,592
+                              c48,-36 106,-36 154,0"/>
+
+        <!-- Tuning bar -->
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="36"
+            android:strokeLineCap="round"
+            android:pathData="M560,468 H820"/>
+
+        <!-- Ticks -->
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="26"
+            android:strokeLineCap="round"
+            android:pathData="M612,468 V504"/>
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="26"
+            android:strokeLineCap="round"
+            android:pathData="M680,468 V504"/>
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="26"
+            android:strokeLineCap="round"
+            android:pathData="M748,468 V504"/>
+
+        <!-- Small knob -->
+        <path
+            android:fillColor="@android:color/transparent"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="36"
+            android:pathData="M736,636
+                              m-54,0
+                              a54,54 0 1,0 108,0
+                              a54,54 0 1,0 -108,0"/>
+    </group>
+</vector>

@@ -1,0 +1,57 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Base gradient: turquoise -> blue (modern, not neon) -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:angle="45"
+                android:startColor="#12D8C8"
+                android:centerColor="#1B80E9"
+                android:endColor="#2338D6" />
+        </shape>
+    </item>
+
+    <!-- Subtle radio-wave rings (ton-in-ton), slightly shifted for modern depth -->
+    <!-- Shift is subtle: avoids "badge circle" look -->
+    <item android:left="10dp" android:top="-8dp" android:right="-10dp" android:bottom="8dp">
+        <shape android:shape="oval">
+            <size android:width="980dp" android:height="980dp"/>
+            <solid android:color="@android:color/transparent"/>
+            <stroke android:width="2dp" android:color="#12FFFFFF"/>
+        </shape>
+    </item>
+
+    <item android:left="10dp" android:top="-8dp" android:right="-10dp" android:bottom="8dp">
+        <shape android:shape="oval">
+            <size android:width="840dp" android:height="840dp"/>
+            <solid android:color="@android:color/transparent"/>
+            <stroke android:width="2dp" android:color="#10FFFFFF"/>
+        </shape>
+    </item>
+
+    <item android:left="10dp" android:top="-8dp" android:right="-10dp" android:bottom="8dp">
+        <shape android:shape="oval">
+            <size android:width="700dp" android:height="700dp"/>
+            <solid android:color="@android:color/transparent"/>
+            <stroke android:width="2dp" android:color="#0EFFFFFF"/>
+        </shape>
+    </item>
+
+    <item android:left="10dp" android:top="-8dp" android:right="-10dp" android:bottom="8dp">
+        <shape android:shape="oval">
+            <size android:width="560dp" android:height="560dp"/>
+            <solid android:color="@android:color/transparent"/>
+            <stroke android:width="2dp" android:color="#0CFFFFFF"/>
+        </shape>
+    </item>
+
+    <item android:left="10dp" android:top="-8dp" android:right="-10dp" android:bottom="8dp">
+        <shape android:shape="oval">
+            <size android:width="420dp" android:height="420dp"/>
+            <solid android:color="@android:color/transparent"/>
+            <stroke android:width="2dp" android:color="#0AFFFFFF"/>
+        </shape>
+    </item>
+
+</layer-list>

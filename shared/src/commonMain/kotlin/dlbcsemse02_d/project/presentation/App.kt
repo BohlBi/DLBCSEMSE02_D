@@ -1,0 +1,53 @@
+package dlbcsemse02_d.project.presentation
+
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import dlbcsemse02_d.project.di.appModule
+import dlbcsemse02_d.project.navigation.AppNavHost
+import dlbcsemse02_d.project.navigation.LocalNavigator
+import dlbcsemse02_d.project.navigation.rememberNavigator
+import dlbcsemse02_d.project.presentation.navigation.BottomNavigationBar
+import org.koin.compose.KoinApplication
+import org.koin.dsl.koinConfiguration
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun App() {
+    KoinApplication(
+        configuration = koinConfiguration { modules(appModule) }
+    ) {
+        MaterialTheme {
+            val navigator = rememberNavigator()
+
+            CompositionLocalProvider(LocalNavigator provides navigator) {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    topBar = {
+                        TopAppBar(
+                            title = { Text("Radio App") },
+                            colors = TopAppBarDefaults.topAppBarColors(
+                                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
+                        )
+                    },
+                    bottomBar = {
+                        BottomNavigationBar()
+                    }
+                ) { paddingValues ->
+                    AppNavHost(
+                        modifier = Modifier.padding(paddingValues)
+                    )
+                }
+            }
+        }
+    }
+}
